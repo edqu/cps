@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Page Title</title>
+    <!-- Latest compiled and minified CSS -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="js/bootstrap-3.4.1-dist/css/bootstrap.min.css"
+    />
+    <!-- Optional theme -->
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="js/bootstrap-3.4.1-dist/css/bootstrap-theme.min.css"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="http://fonts.googleapis.com/css?family=Roboto"
+    />
+    <!-- Site Stylsheet -->
+    <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.10.22/css/dataTables.bootstrap4.min.css">
+    <!-- Latest compiled and minified JavaScript -->
+    
+    
+    
+  </head>
+  <body>
+
+<div class="container-fluid">
+  <div class="row-no-gutters">
+    <div class="col-md-12">
+      <div class="jumbotron text-center">
+
+        <div class="row g-0">
+          <div class="col-md-12">
+            <h1 class="text-left hero-header">
+              Chicago Students Continue to Make Progress
+            </h1>
+          </div>
+        </div>
+      </div>
+    <div
+      class="alert hero-footer text-center "
+      role="alert"
+    >
+      Schools will be closed on Memorial Day, Monday, May 28, 2018.
+      <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+      </button>
+    </div>
+    </div>
+  </div>
+  <div class="row" id="schools" class="schools">
+    <!--  Content binded by jquery -->
+  </div>
+  <div class="row" class="schools">
+    <table class="table table-bordered" id="sortTable">
+      <thead>
+        <tr>
+          <th>SchoolID</th>
+          <th>SchoolShortName</th>
+          <th>StudentCount</th>
+        </tr>
+      </thead>
+      <tbody id="schoolstop10Row">
+        <!--  Content binded by jquery -->
+      </tbody>
+    </table>
+    
+  </div>
+  <div class="row-no-gutters">
+    <div class="col-md-12">
+    <footer class="footer">
+      <div>
+        &copy; <span id="footer-year">2018</span> Chicago Public Schools
+      </div>
+    </footer>
+  </div>
+</div>
+<script src="js/jquery-3.7.0.min.js"></script>
+    <script src="js/bootstrap-3.4.1-dist/js/bootstrap.min.js"></script>
+    
+    <script src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.min.js"></script>
+    <script src="https://cdn.datatables.net/1.10.22/js/dataTables.bootstrap4.min.js"></script>
+    <!-- I place this code at the bottom to load and execute after the dom loads. I wanted to be quick. I  could have also used jquery to execute this on document.load -->
+    <script>
+      
+      $(document).ready(function () {
+        var year = new Date().getFullYear();
+        $("#footer-year").html(year);
+        $('.alert').alert();
+
+        
+
+
+      $.ajax({
+          url: "https://api.cps.edu/schoolprofile/cps/schoolcomparison?SchoolIDs=609720,609759,609695,609738,609704,609739,609755,609740,609727,609679",
+          method: "GET",
+          dataType: "json",
+          success: function (response) {
+            // Iterate over the data and create divs
+            
+            $.each(response, function (index, school) {
+              var schools = '<td class="school">' + school.SchoolID + '</td>'
+              + '<td>' + school.SchoolShortName + '</td>'
+              + '<td>' + school.StudentCount + '</td>';
+              var tableRow = $('<tr>').html(schools);
+              $("#schoolstop10Row").append(tableRow);
+              
+            });
+            $('#sortTable').DataTable();
+
+          },
+          error: function () {
+            console.log("Error retrieving data from the API.");
+          },
+        });
+
+
+        $.ajax({
+          url: "https://api.cps.edu/schoolprofile/cps/schoolcomparison?SchoolIDs=609720,609755,609726",
+          method: "GET",
+          dataType: "json",
+          success: function (response) {
+            // Iterate over the data and create divs
+            $.each(response, function (index, school) {
+              var formattelephone = school.Phone.replace(/(\d{3})(\d{3})(\d{4})/, '$1-$2-$3');
+              var schools = '<div class="school">' +
+              '<h2>' + school.SchoolShortName + '</h2>' +
+                '<p><span class="glyphicon glyphicon-phone"></span>&nbsp;' + formattelephone + '<br/>' +
+                school.AddressStreet + '&nbsp;' + school.AddressCity + '&nbsp;' + school.AddressState + '&nbsp;' + school.AddressZipCode +
+                '</p>' +
+                '<p class="intro">' +
+                school.Introduction +
+                '</p>' +
+                '<div class="row"><div class="col-md-12"><p class="button-row"> <a href="https://schoolinfo.cps.edu/schoolprofile/SchoolDetails.aspx?SchoolID='+ school.SchoolID +'" class="btn btn-primary center" role="button">Read More</a></p></div></div>' +
+               '</div>';
+              var div = $('<div class="col-md-4">').html(schools);
+              $("#schools").append(div);
+            });
+            
+
+          },
+          error: function () {
+            console.log("Error retrieving data from the API.");
+          },
+        });
+
+        
+      });
+      
+    </script>
+  </body>
+</html>

@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>CPS</name>
+    </assembly>
+    <members>
+        <member name="M:CPS.Controllers.CalendarController.GetCalendarsList">
+            <summary>
+            This Endpoint Gets a list of Calendar Results.
+            </summary>
+            <remarks>
+            **Sample Response** (*ColorCode property name has been updated to HexaDecimal*)**:** 
+            
+                {
+                 "hexaDecimal": "#b096c6",
+                 "parentID": 0,
+                 "status": "ACTIVE",
+                 "tagID": 0,
+                 "type": "categories",
+                 "calendarID": 1149,
+                 "calendarName": "Accountability Redesign"
+                }
+               
+            </remarks>
+            <returns>A newly created TodoItem</returns>
+            <response code="200">OK</response>
+            <response code="500">Failed to fetch calendars</response>
+        </member>
+    </members>
+</doc>

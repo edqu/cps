@@ -1,0 +1,107 @@
+@media screen and (max-device-width: 450px){
+  img.jumbotron-img {
+    display: none;
+  }
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  font-size: 14px;
+}
+
+.row {
+  padding-left: 20px;
+  padding-right:20px;
+}
+
+.jumbotron {
+  background: #2952da url(assets/spotlight-eating-outside-mobile.jpg) no-repeat;
+  background-size: cover;
+  margin: 0;
+  padding: 0 !important;
+  border-radius: 0 !important;
+}
+
+img.jumbotron-img {
+  width: 80%;
+  float: left;
+} 
+
+h1.hero-header {
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  height: 450px;
+  width:50%;
+  font-family: "Roboto";
+  font-size: 52px;
+  color: #ffffff !important;
+  text-shadow: 2px 2px #242222;
+  position: relative;
+  margin-left: 20px;
+}
+
+#schools {
+  margin-top: 30px; /* Because h2 has 20px added to it by bootstrap  */
+  margin-bottom: 30px; /* Because h2 has 20px added to it by bootstrap  */
+}
+
+#schools .school {
+  background: #171C61;
+  color: #ffffff;
+  padding: 15px 30px;
+  height: 260px;
+}
+
+.schools  h2 {
+  font-size: 32px;
+}
+
+.schools  p {
+  font-size: 1.4rem;
+  
+}
+
+
+
+.close {
+  color: #ffffff !important;
+  opacity: 0.8;
+}
+
+.hero-footer {
+  background: #000000;
+  color: #ffffff;
+  cursor: pointer;
+  position: relative;
+  padding: 20px;
+  border-radius: 0;
+}
+
+.intro {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3; /* number of lines to show */
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+}
+
+.button-row {
+  text-align: center;
+  padding-top:15px;
+  position: relative;
+  bottom: 0;
+}
+
+.footer {
+  background: #000000;
+  color: #ffffff;
+  padding: 10px;
+  font-size: 14px;
+  height: 100px;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  text-align: left;
+}
